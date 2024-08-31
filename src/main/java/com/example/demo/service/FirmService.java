@@ -5,10 +5,10 @@ import com.example.demo.model.Employee;
 import com.example.demo.repository.DepartmentRepository;
 import com.example.demo.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -25,8 +25,8 @@ public class FirmService {
 
     public Department readDepartment(UUID id) {
         // TODO handle error
-        var dep = departmentRepository.findById(id);
-        return dep.get();
+        Optional<Department> departmentOptional = departmentRepository.findById(id);
+        return departmentOptional.get();
     }
 
     public List<Department> readAllDepartments() {
@@ -43,5 +43,28 @@ public class FirmService {
     public void deleteDepartment(UUID id) {
         departmentRepository.deleteById(id);
     }
+
+    public void createEmployee(Employee employee, UUID department_id) {
+        var department = departmentRepository.findById(department_id).get();
+        employee.setDepartment(department);
+        employeeRepository.save(employee);
+    }
+
+    public Employee readEmployee(UUID id) {
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+        return employeeOptional.get();
+    }
+
+    public void updateEmployee(Employee employee) {
+        Optional<Employee> employeeOptional = employeeRepository.findById(employee.getId());
+        Department department = employeeOptional.get().getDepartment();
+        employee.setDepartment(department);
+        employeeRepository.save(employee);
+    }
+
+    public void deleteEmployee(UUID id) {
+        employeeRepository.deleteById(id);
+    }
+
 
 }

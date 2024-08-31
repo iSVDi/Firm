@@ -50,24 +50,24 @@ public class FirmController {
     }
 
     //  Employs
-    @PostMapping("employee/create")
-    String createEmployee(@RequestBody Employee employee) {
-        return "Create Employee";
+    @PostMapping("employee/create/{department_id}")
+    void createEmployee(@RequestBody Employee employee, @PathVariable UUID department_id) {
+        firmService.createEmployee(employee, department_id);
     }
 
     @GetMapping("employee/read/{id}")
-    String readEmployee(@PathVariable int id) {
-        return "readEmployee";
+    Employee readEmployee(@PathVariable UUID id) {
+        return firmService.readEmployee(id);
     }
 
     @PutMapping("employee/update")
-    String updateEmployee(@RequestBody Employee employee) {
-        return "updateEmployee";
+    void updateEmployee(@RequestBody Employee employee) {
+        firmService.updateEmployee(employee);
     }
 
     @DeleteMapping("employee/delete/{id}")
-    String deleteEmployee(@PathVariable int id) {
-        return "deleteEmployee";
+    void deleteEmployee(@PathVariable UUID id) {
+        firmService.deleteEmployee(id);
     }
 
 }
