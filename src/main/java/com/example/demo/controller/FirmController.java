@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Department;
+import com.example.demo.model.DepartmentView;
 import com.example.demo.model.Employee;
+import com.example.demo.model.EmployeeProjection;
 import com.example.demo.service.FirmService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -28,16 +30,9 @@ public class FirmController {
     }
 
     @GetMapping("department/read/{id}")
-    Department readDepartment(@PathVariable UUID id) {
+    DepartmentView readDepartment(@PathVariable UUID id) {
         return firmService.readDepartment(id);
     }
-
-    @GetMapping()
-    List<Department> readAllDepartment() {
-        return firmService.readAllDepartments();
-    }
-
-
 
     @PutMapping("department/update")
     void updateDepartment(@RequestBody Department department) {
@@ -56,7 +51,7 @@ public class FirmController {
     }
 
     @GetMapping("employee/read/{id}")
-    Employee readEmployee(@PathVariable UUID id) {
+    EmployeeProjection readEmployee(@PathVariable UUID id) {
         return firmService.readEmployee(id);
     }
 

@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Department;
+import com.example.demo.model.DepartmentView;
 import com.example.demo.model.Employee;
+import com.example.demo.model.EmployeeProjection;
 import com.example.demo.repository.DepartmentRepository;
 import com.example.demo.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
@@ -23,17 +25,11 @@ public class FirmService {
         departmentRepository.save(department);
     }
 
-    public Department readDepartment(UUID id) {
+    public DepartmentView readDepartment(UUID id) {
         // TODO handle error
-        Optional<Department> departmentOptional = departmentRepository.findById(id);
-        return departmentOptional.get();
+        DepartmentView department = departmentRepository.getDepartmentById(id);
+        return department;
     }
-
-    public List<Department> readAllDepartments() {
-        return departmentRepository.findAll();
-    }
-
-
     public void updateDepartment(Department department) {
         if (departmentRepository.existsById(department.getId())) {
             departmentRepository.save(department);
@@ -50,9 +46,11 @@ public class FirmService {
         employeeRepository.save(employee);
     }
 
-    public Employee readEmployee(UUID id) {
-        Optional<Employee> employeeOptional = employeeRepository.findById(id);
-        return employeeOptional.get();
+    public EmployeeProjection readEmployee(UUID id) {
+//        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+        EmployeeProjection employee = employeeRepository.getEmployeeById(id);
+        return employee;
+
     }
 
     public void updateEmployee(Employee employee) {
