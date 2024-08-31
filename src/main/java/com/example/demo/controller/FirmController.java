@@ -2,31 +2,51 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Department;
 import com.example.demo.model.Employee;
+import com.example.demo.service.FirmService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
+
 @RestController
+@RequestMapping
+@AllArgsConstructor
+@Validated
 public class FirmController {
 
+    private final FirmService firmService;
 
     //  Departments
     @PostMapping("department/create")
-    String createDepartment(@RequestBody Department department) {
-        return "Create department";
+    void createDepartment(@RequestBody Department department) {
+        firmService.createDepartment(department);
     }
 
     @GetMapping("department/read/{id}")
-    String readDepartment(@PathVariable int id) {
-        return "readDepartment";
+    Department readDepartment(@PathVariable UUID id) {
+        return firmService.readDepartment(id);
     }
 
+    @GetMapping()
+    List<Department> readAllDepartment() {
+        return firmService.readAllDepartments();
+    }
+
+
+
     @PutMapping("department/update")
-    String updateDepartment(@RequestBody Department department) {
-        return "updateDepartment";
+    void updateDepartment(@RequestBody Department department) {
+        firmService.updateDepartment(department);
     }
 
     @DeleteMapping("department/delete/{id}")
-    String deleteDepartment(@PathVariable int id) {
-        return "deleteDepartment";
+    void deleteDepartment(@PathVariable UUID id) {
+        firmService.deleteDepartment(id);
     }
 
     //  Employs
