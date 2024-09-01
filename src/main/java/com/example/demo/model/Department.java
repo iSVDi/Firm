@@ -6,12 +6,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,5 +24,6 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     private List<Employee> employeeList;
+
 }
 
